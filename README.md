@@ -16,8 +16,12 @@ chapter_folder: chapter_<number>
 ```
 
 3. Go back to main menu and click on assets folder
-4. Click create new file 
+4. Click create new file name it chapter_<number>/temp.txt
+- ex. if it's chapter 2, name it chapter_2/test.txt
+5. Click add files and add in files
+6. delete test.txt
 
 
 ## Adding Pages
-1. C
+1. Click on assets folder
+2. Click add files and add in files
