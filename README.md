@@ -4,7 +4,7 @@
 1. Click _archive folder
 2. Create new md file in _archive, named chapter_<number>.md
 - ex. if it's chapter 2, name it chapter_2.md
-<br>
+
 a. Paste in and change <number> to the chapter number 
 ```
 ---
