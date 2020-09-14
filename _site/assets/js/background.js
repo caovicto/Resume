@@ -83,7 +83,7 @@ function init() {
             color: 0xffffff,
             transparent: true,
             map: new THREE.TextureLoader().load(
-                '/CaliaNova/assets/models/textures/stars/star_'+i.toString()+'.png'
+                '/assets/models/textures/stars/star_'+i.toString()+'.png'
             ),
             side: THREE.DoubleSide
         });
