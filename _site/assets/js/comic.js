@@ -73,7 +73,9 @@ $(document).ready(function () {
         console.log($(this).children().attr("page-id"));
         console.log("replace page");
         var replaceID = $(this).children().attr("page-id");
+        
         replace(replaceID);
+        $('.modal-container').addClass('out');
     })
 
 
