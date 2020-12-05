@@ -28,7 +28,10 @@
       <a page-nav="prev" title="previous page"><img class="left" src="{{ site.baseurl }}/assets/main/previous.png"></a>
 
       <div class="content">
-        <div title="Chapter List" id="chapter-list" class="chapter-btn">{{ page.title }}</div>
+        <div title="Chapter List" title="chapter-list" class="modal-btn">{{ page.title }}</div>
+      </div>
+      <div class="content">
+        <div title="Page List" title="page-list" class="modal-btn">Page 1</div>
       </div>
         
       <a page-nav="next" title="next page"><img class="right" src="{{ site.baseurl }}/assets/main/next.png"></a>
@@ -37,7 +40,7 @@
 
     
     <!-- Chaper Modal -->
-    <div id="modal-container">
+    <div class="modal-container" id="chapter-modal">
       <div class="modal-background">
         <div class="modal">    
 
@@ -55,6 +58,31 @@
         </div>
       </div>
     </div>
+
+    <!-- Page Modal -->
+    <div class="modal-container" id="page-modal">
+      <div class="modal-background">
+        <div class="modal">    
+
+          <div class="modal-header">
+            <span class="close">&times;</span>
+          </div>
+          <div class="modal-body">
+            <ul>
+              {% assign id = 1 %}
+              {% assign files = site.static_files %}
+              {% for image in files  %}
+                {% if image.path contains include.chapter_folder %}
+                  <li class="page-replace"><a alt="{{ image.id }}" page-id="{{ id }}" class="dropdown-item">Page {{id}}</a></li>
+                  {% assign id = id | plus: 1 %}
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
     
 
     <!-- Chapter Content -->
@@ -64,7 +92,7 @@
       {% assign files = site.static_files %}
       {% for image in files  %}
         {% if image.path contains include.chapter_folder %}
-          <img src="{{ site.baseurl }}{{ image.path }}" alt="{{ image.id }}" page-id="{{ id }}" style="display: none">
+          <img src="{{ site.baseurl }}{{ image.path }}" class="page-img" alt="{{ image.id }}" page-id="{{ id }}" style="display: none">
           {% assign id = id | plus: 1 %}
         {% endif %}
       {% endfor %}
@@ -76,7 +104,10 @@
       <a page-nav="prev" title="previous page"><img class="left" src="{{ site.baseurl }}/assets/main/previous.png"></a>
 
       <div class="content">
-        <div title="Chapter List" id="chapter-list" class="chapter-btn">{{ page.title }}</div>
+        <div title="Chapter List" title="chapter-list" class="modal-btn">{{ page.title }}</div>
+      </div>
+      <div class="content">
+        <div title="Page List" title="page-list" class="modal-btn">Page 1</div>
       </div>
         
       <a page-nav="next" title="next page"><img class="right" src="{{ site.baseurl }}/assets/main/next.png"></a>
