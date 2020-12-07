@@ -92,7 +92,7 @@
       {% assign files = site.static_files %}
       {% for image in files  %}
         {% if image.path contains include.chapter_folder %}
-          <img src="{{ site.baseurl }}{{ image.path }}" class="page-img" alt="{{ image.id }}" page-id="{{ id }}" style="display: none">
+         <img src="{{ site.baseurl }}{{ image.path }}" class="page-img" alt="{{ image.id }}" page-id="{{ id }}" style="display: none">
           {% assign id = id | plus: 1 %}
         {% endif %}
       {% endfor %}

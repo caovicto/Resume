@@ -1,7 +1,11 @@
-url: calianova.com
+lastPage: 1
 
+url: calianova.com
 theme: jekyll-theme-cayman
 
 collections:
     archive:
       output: true
+
+plugins:
+  - jekyll-last-modified-at

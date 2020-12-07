@@ -1,6 +1,16 @@
+var locked = false;
 
-$(document).ready(function () {
-    topFunction();
+$(document).ready(function () 
+{
+    var url = new URL(window.location.href);
+    var page = url.searchParams.get('page');
+
+    // console.log(page);
+    if (page == null)
+    {
+        page = '1';
+    }
+    update(page);
 
     // to top at start of page
     $(document).on('click', '.top-btn', topFunction); 
@@ -39,120 +49,91 @@ $(document).ready(function () {
         }
     });
 
-    // page turning
-    $("[page-id='1']").fadeIn(500);
 
     $(".page-img").click( function() {
-        next();
+        var url = new URL(window.location.href);
+        var page = parseInt(url.searchParams.get('page'), 10);
+ 
+        update(page+1);
     })
 
     $("[page-nav='prev']").click(function() {
-        prev();
+        var url = new URL(window.location.href);
+        var page = parseInt(url.searchParams.get('page'), 10);
+        update(page-1);
     });
 
-
     $("[page-nav='next']").click(function() {
-        next();
+        var url = new URL(window.location.href);
+        var page = parseInt(url.searchParams.get('page'), 10);
+        update(page+1);
     });
 
     $(document).keydown( function(event) {
+        var url = new URL(window.location.href);
+        var page = parseInt(url.searchParams.get('page'), 10);
+
         // left arrow key
         if (event.which == 37)
         {
-            prev();
+            update(page+1);
         }
         // right arrow key
         else if (event.which == 39)
         {
-            next();
+            update(page-1);
         }
     });
 
     // page modal
     $(document).on('click', '.page-replace', function(){
-        console.log($(this).children().attr("page-id"));
-        console.log("replace page");
-        var replaceID = $(this).children().attr("page-id");
+        var page = $(this).children().attr("page-id");
         
-        replace(replaceID);
+        update(page);
         $('.modal-container').addClass('out');
     })
 
 
 }); 
 
+function unlock () {
+    locked = false;
+}
+
 // When the user clicks on the button, scroll to the top of the document
-function topFunction() 
+async function topFunction() 
 {
-    $('html, body').animate({
-        scrollTop: $("#comic").position().top
-    });
+    if (!locked) {
+        locked = true;
+        console.log("top");
+        setTimeout(unlock, 1000);
+        $('html, body').animate({
+            scrollTop: $("#comic").position().top
+        });
+    }
 }
 
-function prev()
+function update(page)
 {
-    var currID = $(".chapter-pages").find(":visible").attr('page-id');
-    var nextID = parseInt(currID, 10)-1;
-    var nextPage = $("[page-id='"+nextID+"']");
-    if (nextPage.length)
-    {
-        $("[page-id='"+currID+"']").fadeOut(0, function(){
-            $(nextPage).fadeIn(0, function() {
-                topFunction();
-            });
-        })
-    }
-    else
-    {
-        console.log($("[title='previous chapter']"));
-        window.location.href = $("[title='previous chapter']").attr('href');
-    }
-    updatePageTitle();
-}
+    var max = $("[class='page-img']").length+1;
 
-function next() 
-{
-    var currID = $(".chapter-pages").find(":visible").attr('page-id');
-    var nextID = parseInt(currID, 10)+1;
-    var nextPage = $("[page-id='"+nextID+"']");
-    if (nextPage.length)
+    if (page < max)
     {
-        $("[page-id='"+currID+"'][class='page-img']").fadeOut(0, function(){
-            $(nextPage).fadeIn(0, function() {
+        $("[page-id][class='page-img']").hide(0, function(){
+            $("[page-id='"+page+"'][class='page-img']").show(0, function() {
                 topFunction();
             });
-        })
+        })        
     }
     else
     {
         console.log($("[title='next chapter']"));
         window.location.href = $("[title='next chapter']").attr('href');
     }
-    updatePageTitle();
-}
 
-function replace(nextID)
-{
-    var currID = $(".chapter-pages").find(":visible").attr('page-id');
-    var nextPage = $("[page-id='"+nextID+"']");
-    if (nextPage.length)
-    {
-        $("[page-id='"+currID+"'][class='page-img']").fadeOut(0, function(){
-            $(nextPage).fadeIn(0, function() {
-                topFunction();
-            });
-        })
-    }
-    else
-    {
-        console.log($("[title='next chapter']"));
-        window.location.href = $("[title='next chapter']").attr('href');
-    }
-    updatePageTitle();
-}
+    var url = new URL(window.location.href);
+    url.searchParams.set('page', page);
+    window.history.pushState(null, null, url.href)
 
-function updatePageTitle()
-{
-    var currID = $(".chapter-pages").find(":visible").attr('page-id');
-    $("[title=page-list]").text("Page "+currID)
+    $("[title=page-list]").text("Page "+page)
 }
