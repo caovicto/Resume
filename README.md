@@ -1,6 +1,6 @@
 # CaliaNova
 ## Latest Update
-If you want to change the latest update page, then open _config.yaml
+If you want to change the latest update page, then open _config.yml
 
 ```
 lastPage: 2
