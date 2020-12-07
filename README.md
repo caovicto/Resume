@@ -1,4 +1,13 @@
 # CaliaNova
+## Latest Update
+If you want to change the latest update page, then open _config.yml
+
+```
+lastPage: 2
+```
+
+
+and change the line to whatever page number you want.
 
 ## Adding Chapter
 1. Click _archive folder
