@@ -76,12 +76,12 @@ $(document).ready(function ()
         // left arrow key
         if (event.which == 37)
         {
-            update(page+1);
+            update(page-1);
         }
         // right arrow key
         else if (event.which == 39)
         {
-            update(page-1);
+            update(page+1);
         }
     });
 
@@ -117,23 +117,26 @@ function update(page)
 {
     var max = $("[class='page-img']").length+1;
 
-    if (page < max)
+    if (page < 1)
+    {
+        window.location.href = $("[title='previous chapter']").attr('href');
+    }
+    else if (page < max)
     {
         $("[page-id][class='page-img']").hide(0, function(){
             $("[page-id='"+page+"'][class='page-img']").show(0, function() {
                 topFunction();
             });
-        })        
+        });
+        
+        var url = new URL(window.location.href);
+        url.searchParams.set('page', page);
+        window.history.pushState(null, null, url.href)
+    
+        $("[title=page-list]").text("Page "+page)
     }
     else
     {
-        console.log($("[title='next chapter']"));
         window.location.href = $("[title='next chapter']").attr('href');
     }
-
-    var url = new URL(window.location.href);
-    url.searchParams.set('page', page);
-    window.history.pushState(null, null, url.href)
-
-    $("[title=page-list]").text("Page "+page)
 }
