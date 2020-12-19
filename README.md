@@ -24,3 +24,7 @@ chapter_folder: chapter_<number>
 ## Adding Pages
 1. Click on assets folder
 2. Click add files and add in files
+
+##Adding Cover
+1.Go to assets/main
+2. replace 'latest-cover.png'
