@@ -1,6 +1,6 @@
 ---
 layout: chapter
-title: Chapter >
+title: Chapter 3
 chapter_folder: chapter_3
 ---
 
